@@ -1,0 +1,180 @@
+
+// IMPORTANT 
+// This class also includes the main method - to experience the provided functionalities
+
+public class LinkedList {
+	Node head; 
+	
+	public LinkedList(Node head ){
+		this.head = head; 
+	}
+	
+	// to add a new node at the beginning of a linkedList 
+	// the new node becomes the head 
+	
+	public void addFirst(Node newNode){
+		newNode.next = head; 
+		head = newNode; 
+	}
+	
+	public void deleteFirst(){
+		Node current = head; 
+		head = current.next; 
+	}
+	
+	public void addAfterHead(Node newNode){
+		newNode.next = head.next; 
+		head.next = newNode; 
+	}
+	
+	public void printNodes(){
+		Node current = head; 
+		while(current != null){
+			System.out.println(current.age);
+			current = current.next; 
+		}
+	}
+	
+	public void searchNode(int i){
+		Node current = head; 
+		boolean flag = false; 
+		while(current != null ){
+			if(current.age == i ){
+				System.out.println("FOUND!!");
+				flag = true; 
+				break; 
+			}else{
+				current = current.next; 
+				continue; 
+			}
+		}
+		if(flag == false ){
+			System.out.println("The Element is not in the LinkedList");
+		}
+	}
+	
+	public int getNumberOfNodes(){
+		int size= 0; 
+		Node current = head; 
+		while(current != null ){
+			size++; 
+			current = current.next; 
+		}
+		return size; 
+	}
+	
+	public void addElementAfter(Node newNode , int i ){
+		Node current = head; 
+		while(current != null ){
+			if(current.age == i ){
+				newNode.next = current.next; 
+				current.next = newNode; 
+				break; 
+			}else{
+				current = current.next; 
+				continue; 
+			}
+		}
+	}
+	
+	public void deleteElement(int i ){
+		Node current = head; 
+		boolean flag = false; 
+		while(current != null ){
+			if(current.next.age == i ){
+				current.next = current.next.next; 
+				flag = true; 
+				break; 
+			}else if(i == head.age){ // in case that the deleted node is the head 
+				deleteFirst(); 
+				flag = true; 
+				break; 
+			}else{ // continue looping to find the node to delete 
+				current = current.next; 
+				continue; 
+			}
+		}
+		if(flag == false){
+			System.out.println("The node that contains the data is not in the Linked List ");
+		}
+	}
+	
+	public void addElementAtTheLast(Node newNode){
+		Node current = head; 
+		while(current != null ){
+			if(current.next == null ){
+				current.next = newNode; 
+				break; 
+			}else{
+				current = current.next; 
+				continue; 
+			}
+		}
+	}
+	
+	public boolean isEmpty(){
+		if(head.next == null){
+			return true; 
+		}else{
+			return false; 
+		}
+	}
+	
+	public static void main(String[] args){
+		LinkedList ls = new LinkedList(new Node(null , 12));
+		ls.addFirst(new Node (null , 13));
+		ls.addFirst(new Node (null , 14));
+		ls.printNodes();
+//		System.out.println("_____");
+//		ls.deleteFirst();
+//		ls.printNodes();
+//		System.out.println("_____");
+//		ls.deleteFirst();
+//		ls.printNodes();
+//		System.out.println("_____");
+//		ls.deleteFirst();
+//		ls.printNodes();
+		System.out.println("add element after the head ");
+		ls.addAfterHead(new Node(null , 16));
+		ls.printNodes();
+		System.out.println("add element after the head ");
+		ls.addAfterHead(new Node(null , 17));
+		ls.printNodes();
+//		System.out.println("add element after the head ");
+//		ls.addAfterHead(new Node(null , 18));
+//		ls.printNodes();
+		System.out.println("Searching about 12");
+		ls.searchNode(12);
+		System.out.println("Searching about 219");
+		ls.searchNode(219);
+		System.out.println("There are " + ls.getNumberOfNodes() + " Nodes in the LinkedList.");
+		System.out.println("After adding an element after 16 ");
+		ls.addElementAfter(new Node(null , 20 ), 16);
+		ls.printNodes();
+		System.out.println("_______");
+		System.out.println("After adding an element after  ");
+		ls.addElementAfter(new Node(null ,21 ), 16);
+		ls.printNodes();
+		System.out.println("_______");
+		System.out.println("After adding an element after  ");
+		ls.addElementAfter(new Node(null , 22 ), 16);
+		ls.printNodes();
+		System.out.println("_______");
+		System.out.println("After adding an element after  ");
+		ls.addElementAfter(new Node(null , 23), 16);
+		ls.printNodes();
+		System.out.println("______");
+		System.out.println("After deleting 23 ");
+		ls.deleteElement(23);
+		ls.printNodes();
+		System.out.println("After deleting 14 ");
+		ls.deleteElement(14);
+		ls.printNodes();
+		System.out.println("Adding element at the last ");
+		ls.addElementAtTheLast(new Node(null , 200));
+		ls.printNodes();
+		System.out.println("__________________________\n" + ls.isEmpty());
+		LinkedList ls2 = new LinkedList(new Node(null , 15)); 
+		System.out.println("__________________________\n" + ls2.isEmpty());
+	}
+}
