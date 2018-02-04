@@ -1,0 +1,11 @@
+public class Node {
+	Node next; // to define the successor 
+	int age; 
+	
+	// A constructor is used to initialize the node 
+	
+	public Node(Node next , int age ){
+		this.next = next; 
+		this.age  = age; 
+	}
+}
