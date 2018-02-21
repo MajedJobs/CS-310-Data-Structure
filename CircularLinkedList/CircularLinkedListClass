@@ -1,0 +1,186 @@
+public class CircularLinkedList<E> {
+	private class Node<E>{
+		Node<E> next; 
+		E element; 
+		
+		public Node(Node next , E element){
+			this.next = next;
+			this.element = element; 
+		}
+		
+		public E getElement(){
+			return element; 
+		}
+	}
+	
+	Node<E> head; 
+	Node<E> tail; 
+	int size = 0;
+	
+	public int getSize(){
+		return size; 
+	}
+	
+	public boolean isEmpty(){
+		return size==0; 
+	}
+	
+	public void addFirst(E element){
+		Node<E> newNode  = new Node<>(null, element); 
+		if(isEmpty()){
+			head = newNode; 
+			tail = newNode; 
+			//tail.next = head; 
+			size++; 
+		}else{
+			newNode.next = head; 
+			head = newNode; 
+			tail.next = head; 
+			size++;
+		}
+	}
+	
+	public void addLast(E element){
+		Node<E> newNode = new Node<>(null, element); 
+		if(isEmpty()){
+			addFirst(element);
+			size++; 
+		}else{
+			tail.next = newNode; 
+			newNode.next = head; 
+			tail = newNode;
+			size++;
+		}
+	}
+	
+	public void deleteFirst(){
+		head = head.next; 
+		tail.next = head; 
+		size--;
+	}
+	
+	public void addBefore(int position, E element){
+		Node<E> current = head; 
+		Node<E> newNode = new Node<>(null, element); 
+		int counter = 1; 
+		
+		if(position == 1 ){
+			addFirst(element);
+			size++;
+		}else{
+			while(current != null ){
+				if(counter == position-1){
+					newNode.next = current.next; 
+					current.next = newNode; 
+					size++; 
+					return ; 
+				}else{
+					current = current.next; 
+					counter++; 
+				}
+			}
+		}
+		
+	}
+	
+	public void addAfter(int position , E element){
+		Node<E> current = head; 
+		Node<E> newNode = new Node<>(null, element); 
+		int counter = 1; 
+		while(current != null) {
+			if(counter == position){
+				newNode.next = current.next; 
+				current.next = newNode; 
+				size++; 
+				return ; 
+			}else{
+				current = current.next; 
+				counter++;
+				continue;
+			}
+		}
+	}
+	
+	public void deleteAfter(int position){
+		Node<E> current = head;
+		int counter =1; 
+		
+		while(current != null ){
+			if(counter == position){
+				current.next = current.next.next; 
+				size--;
+				return ;
+			}else{
+				counter++;
+				current = current.next;
+				continue;
+			}
+		}
+	}
+	
+	public void deleteAtPosition(int position){
+		Node<E> current = head;
+		int counter =1; 
+		
+		while(current != null ){
+			if(counter == position-1){
+				current.next = current.next.next; 
+				size--;
+				return ;
+			}else{
+				current = current.next; 
+				counter++;
+			}
+		}
+	}
+	
+	
+	public void deleteBefore(int position){
+		Node<E> current = head;
+		int counter =1; 
+		
+		while(current != null ){
+			if(counter == position-2){ // the magic goes here
+				current.next = current.next.next; 
+				size--;
+				return ;
+			}else{
+				current = current.next; 
+				counter++;
+			}
+		}
+	}
+	
+	
+	public void printInformation(){
+		int counter = 1;
+		Node<E> current = head; 
+		do{
+			System.out.print(current.getElement() + " ");
+			current = current.next; 
+			counter++;
+		}while(current != head) ;
+		System.out.println("\n__________");
+	}
+	public static void main(String[] args){
+		CircularLinkedList<Integer> cll = new CircularLinkedList<>(); 
+		cll.addFirst(new Integer(11));
+		cll.addFirst(new Integer(12));
+		cll.addFirst(new Integer(13));
+		cll.addLast(new Integer(10));
+		cll.addLast(new Integer(100));
+		cll.addLast(new Integer(219));
+		cll.deleteFirst();
+		cll.printInformation();
+		cll.addBefore(1, new Integer(1001));
+		cll.printInformation();
+		cll.addBefore(2, new Integer(123));
+		cll.printInformation();
+		cll.addAfter(1, new Integer(124));
+		cll.printInformation();
+		cll.addAfter(3, new Integer(1000));
+		cll.printInformation();
+		cll.deleteAfter(3);
+		cll.printInformation();
+	}
+}
